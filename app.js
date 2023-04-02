@@ -8,7 +8,6 @@ dotenv.config({
   path: './.env',
 });
 
-
 const app = express();
 
 app.use(logger('dev'));
@@ -17,10 +16,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const indexRouter = require('./routes/index');
+// const indexRouter = require('./routes/index');
 const registrationsRouter = require('./routes/registrations');
 
-app.use('/', indexRouter);
-app.use('/registrations', registrationsRouter);
+// app.use('/', indexRouter);
+app.use('/api/registrations', registrationsRouter);
 
 module.exports = app;
