@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = express.Router();
 
-const { body, validationResult } = require('express-validator');
 const registrations = require('../services/registrations');
 
 const responseSender = require('../middleware/responseSender');
@@ -23,23 +22,9 @@ router.get('/', async (req, res, next) => {
 }, responseSender);
 
 /* POST store registration */
-router.post(
-  '/',
-  body('user_name').notEmpty(),
-  body('user_birth_date').notEmpty().isDate({ format: 'YYYY-MM-DD' }),
-  body('position_duration').notEmpty().isNumeric(),
-  body('company_name').notEmpty(),
-  body('job_position').notEmpty(),
+router.route('/').post(
   async (req, res, next) => {
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        req.responseObject = helper.messageResponse(JSON.stringify(errors.array()));
-        req.responseStatus = 400;
-
-        return next();
-      }
-
       req.responseObject = await registrations.storeRegistration(
         req.body.user_name,
         req.body.user_birth_date,

@@ -1,4 +1,4 @@
-const dotenv = require("dotenv")
+const dotenv = require('dotenv');
 
 const config = {
   db: { /* do not put password or any sensitive info here, done only for demo */
@@ -8,6 +8,9 @@ const config = {
     password: process.env.DATABASE_PASSWORD || 'root',
     database: process.env.DATABASE_NAME || 'nodejs_demo',
     connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_TLS === 'true'
+      ? { rejectUnauthorized: false } : false,
+
   },
   listPerPage: process.env.LIST_PER_PAGE || 10,
 };

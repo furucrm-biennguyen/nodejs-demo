@@ -21,9 +21,25 @@ cp .env.example .env
 npm install
 ```
 
+### Create certificates for ssl connection
+```bash
+mkdir openssl && cd openssl
+
+openssl req -x509 \
+            -sha256 -days 356 \
+            -nodes \
+            -newkey rsa:2048 \
+            -subj "/CN=demo.furucrm.com/C=VN/L=HCMc" \
+            -keyout rootCA.key -out rootCA.crt
+```
+<i>
+Note: For MacOS, you need to open `rootCA.crt` file in your finder to add to keychain
+</i>
+
+
 ## Run the project
 ```bash
 nodemon nodejs_demo
 ``` 
 
-The project will be started at <a target="_blank" href="http://localhost:3000">http://localhost:3000</a>
+The project will be started at <a target="_blank" href="http://localhost:3000">http://localhost:3000</a> or  <a target="_blank" href="https://localhost:3000">https://localhost:3000</a> with ssl.

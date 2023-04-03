@@ -6,6 +6,10 @@
 
 const debug = require('debug')('nodejs-postgresql:server');
 const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+const dotenv = require('dotenv');
 const app = require('../app');
 
 /**
@@ -15,11 +19,19 @@ const app = require('../app');
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+const options = {
+  key: fs.readFileSync(`${path.resolve(__dirname, '../openssl/rootCA.key')}`),
+  cert: fs.readFileSync(`${path.resolve(__dirname, '../openssl/rootCA.crt')}`),
+};
+
 /**
  * Create HTTP server.
  */
+let server = http.createServer(app);
 
-const server = http.createServer(app);
+if (process.env.DATABASE_TLS === 'true') {
+  server = https.createServer(options, app);
+}
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -1,13 +1,11 @@
 const { Pool } = require('pg');
 const config = require('../config/config');
 
-const defaultSchema = 'salesforce';
-
 const pool = new Pool(config.db);
 
-pool.on('connect', (client) => {
-  client.query(`SET search_path TO ${defaultSchema}, public`);
-});
+// pool.on('connect', (client) => {
+//   client.query(`SET search_path TO ${defaultSchema}, public`);
+// });
 
 /**
  * Query the database using the pool

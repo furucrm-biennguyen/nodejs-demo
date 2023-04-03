@@ -2,11 +2,13 @@ const db = require('../databases/db');
 const helper = require('../helper');
 const config = require('../config/config');
 
+const defaultSchema = 'salesforce.grant_money_info__c';
+
 async function getMultiple(page = 1) {
   const offset = helper.getOffset(config.listPerPage, page);
 
   const rows = await db.query(
-    'SELECT * FROM grant_money_info__c OFFSET $1 LIMIT $2',
+    `SELECT * FROM ${defaultSchema} OFFSET $1 LIMIT $2`,
     [offset, config.listPerPage],
   );
   const data = helper.emptyOrRows(rows);
@@ -26,7 +28,7 @@ async function storeRegistration(
   jobPosition,
   positionDescription,
 ) {
-  await db.insert('grant_money_info__c', {
+  await db.insert(defaultSchema, {
     user_name__c: username,
     user_birth_date__c: userBirthDate,
     position_duration__c: positionDuration,
