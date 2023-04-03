@@ -19,17 +19,16 @@ const app = require('../app');
 const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-const options = {
-  key: fs.readFileSync(`${path.resolve(__dirname, '../openssl/rootCA.key')}`),
-  cert: fs.readFileSync(`${path.resolve(__dirname, '../openssl/rootCA.crt')}`),
-};
-
 /**
  * Create HTTP server.
  */
 let server = http.createServer(app);
 
 if (process.env.DATABASE_TLS === 'true') {
+  const options = {
+    key: fs.readFileSync(`${path.resolve(__dirname, '../openssl/rootCA.key')}`),
+    cert: fs.readFileSync(`${path.resolve(__dirname, '../openssl/rootCA.crt')}`),
+  };
   server = https.createServer(options, app);
 }
 
