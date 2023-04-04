@@ -25,11 +25,19 @@ npm install
 ```bash
 mkdir openssl && cd openssl
 
+# For MacOS or Linux
 openssl req -x509 \
             -sha256 -days 356 \
             -nodes \
             -newkey rsa:2048 \
             -subj "/CN=demo.furucrm.com/C=VN/L=HCMc" \
+            -keyout rootCA.key -out rootCA.crt
+# For Windows
+openssl req -x509 \
+            -sha256 -days 356 \
+            -nodes \
+            -newkey rsa:2048 \
+            -subj "//CN=demo.furucrm.com\C=VN\L=HCMc" \
             -keyout rootCA.key -out rootCA.crt
 ```
 <i>
