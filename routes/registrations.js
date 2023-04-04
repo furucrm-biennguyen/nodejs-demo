@@ -11,9 +11,13 @@ const helper = require('../helper');
 const createRegistrationValidator = require('../validators/createRegistrationValidator');
 
 /* GET registrations listing. */
-router.get('/', async (req, res, next) => {
+router.route('/').get(async (req, res, next) => {
   try {
-    req.responseObject = await registrations.getMultiple(req.query.page);
+    if (req.query.search) {
+      req.responseObject = await registrations.searchByField('user_phone__c', req.query.search);
+    } else {
+      req.responseObject = await registrations.getMultiple(req.query.page);
+    }
 
     return next();
   } catch (err) {

@@ -20,6 +20,18 @@ async function getMultiple(page = 1) {
   };
 }
 
+async function searchByField(fieldName, fieldValue) {
+  const rows = await db.query(
+    `SELECT * FROM ${defaultSchema} WHERE ${fieldName} = $1`,
+    [fieldValue],
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {
+    data,
+  };
+}
+
 async function storeRegistration(
   username,
   userEmail,
@@ -48,5 +60,6 @@ async function storeRegistration(
 
 module.exports = {
   getMultiple,
+  searchByField,
   storeRegistration,
 };
