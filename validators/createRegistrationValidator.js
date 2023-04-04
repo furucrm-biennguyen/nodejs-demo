@@ -1,5 +1,4 @@
-const { body, validationResult } = require('express-validator');
-const helper = require('../helper');
+const { body } = require('express-validator');
 
 exports.validate = [
   body('user_phone')
@@ -27,21 +26,4 @@ exports.validate = [
   body('job_position')
     .notEmpty()
     .withMessage('Job position can not be empty'),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const extractedErrors = {};
-      errors.array().map((err) => {
-        extractedErrors[err.param] = err.msg;
-        return extractedErrors;
-      });
-
-      req.responseObject = helper.messageResponse(JSON.stringify(extractedErrors));
-      req.responseStatus = 400;
-
-      return next();
-    }
-
-    return next();
-  },
 ];

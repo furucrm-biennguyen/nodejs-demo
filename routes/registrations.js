@@ -2,13 +2,15 @@ const express = require('express');
 
 const router = express.Router();
 
+const { validationResult } = require('express-validator');
+
 const registrations = require('../services/registrations');
 
 const responseSender = require('../middleware/responseSender');
 
 const helper = require('../helper');
 
-const createRegistrationValidator = require('../validators/createRegistrationValidator');
+const { validate } = require('../validators/createRegistrationValidator');
 
 /* GET registrations listing. */
 router.route('/').get(async (req, res, next) => {
@@ -29,9 +31,23 @@ router.route('/').get(async (req, res, next) => {
 
 /* POST store registration */
 router.route('/').post(
-  createRegistrationValidator.validate,
+  validate,
   async (req, res, next) => {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const extractedErrors = {};
+        errors.array().map((err) => {
+          extractedErrors[err.param] = err.msg;
+          return extractedErrors;
+        });
+
+        req.responseObject = helper.messageResponse(JSON.stringify(extractedErrors));
+        req.responseStatus = 400;
+
+        return next();
+      }
+
       req.responseObject = await registrations.storeRegistration(
         req.body.user_name,
         req.body.user_email,
