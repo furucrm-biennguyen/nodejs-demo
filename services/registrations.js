@@ -22,6 +22,8 @@ async function getMultiple(page = 1) {
 
 async function storeRegistration(
   username,
+  userEmail,
+  userPhone,
   userBirthDate,
   positionDuration,
   companyName,
@@ -30,10 +32,13 @@ async function storeRegistration(
 ) {
   await db.insert(defaultSchema, {
     user_name__c: username,
+    user_email__c: userEmail,
+    user_phone__c: userPhone,
     user_birth_date__c: userBirthDate,
     position_duration__c: positionDuration,
     company_name__c: companyName,
-    job_position__c: `${jobPosition} - ${positionDescription}`,
+    job_position__c: jobPosition,
+    position_description__c: positionDescription,
     createddate: (new Date()).toISOString(),
     isdeleted: false,
   });

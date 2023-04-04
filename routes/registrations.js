@@ -8,6 +8,8 @@ const responseSender = require('../middleware/responseSender');
 
 const helper = require('../helper');
 
+const createRegistrationValidator = require('../validators/createRegistrationValidator');
+
 /* GET registrations listing. */
 router.get('/', async (req, res, next) => {
   try {
@@ -23,10 +25,13 @@ router.get('/', async (req, res, next) => {
 
 /* POST store registration */
 router.route('/').post(
+  createRegistrationValidator.validate,
   async (req, res, next) => {
     try {
       req.responseObject = await registrations.storeRegistration(
         req.body.user_name,
+        req.body.user_email,
+        req.body.user_phone,
         req.body.user_birth_date,
         req.body.position_duration,
         req.body.company_name,

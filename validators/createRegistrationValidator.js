@@ -1,13 +1,15 @@
 const { body, validationResult } = require('express-validator');
 const helper = require('../helper');
 
-exports.validateUser = [
+exports.validate = [
   body('user_phone')
     .notEmpty()
     .withMessage('User\'s phone can not be empty'),
   body('user_email')
     .notEmpty()
-    .withMessage('User\'s email can not be empty'),
+    .withMessage('User\'s email can not be empty')
+    .isEmail()
+    .withMessage('User\'s email is wrong format'),
   body('user_name').notEmpty().withMessage('Username can not be empty'),
   body('user_birth_date')
     .notEmpty()
