@@ -1,3 +1,4 @@
+const { Registration } = require('../models/index');
 const db = require('../databases/db');
 const helper = require('../helper');
 const config = require('../config/config');
@@ -58,8 +59,32 @@ async function storeRegistration(
   return helper.messageResponse('Create successfully');
 }
 
+async function createRegistration(
+  username,
+  userEmail,
+  userPhone,
+  userBirthDate,
+  positionDuration,
+  companyName,
+  jobPosition,
+  positionDescription,
+) {
+  const a = await Registration.create({
+    user_name__c: username,
+    user_email__c: userEmail,
+    user_phone__c: userPhone,
+    user_birth_date__c: userBirthDate,
+    position_duration__c: positionDuration,
+    company_name__c: companyName,
+    job_position__c: jobPosition,
+    position_description__c: positionDescription,
+  });
+  console.log('a', a);
+}
+
 module.exports = {
   getMultiple,
   searchByField,
   storeRegistration,
+  createRegistration,
 };
