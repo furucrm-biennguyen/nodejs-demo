@@ -18,8 +18,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // const indexRouter = require('./routes/index');
 const registrationsRouter = require('./routes/registrations');
+const employeesRouter = require('./routes/employees');
 
 // app.use('/', indexRouter);
 app.use('/api/registrations', registrationsRouter);
+app.use('/api/employees', employeesRouter);
 
 module.exports = app;
