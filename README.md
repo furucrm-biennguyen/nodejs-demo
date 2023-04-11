@@ -21,7 +21,7 @@ cp .env.example .env
 npm install
 ```
 
-### Create certificates for ssl connection
+### [Optional] Create certificates for ssl connection
 ```bash
 mkdir openssl && cd openssl
 

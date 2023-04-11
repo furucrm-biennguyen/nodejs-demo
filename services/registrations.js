@@ -69,7 +69,7 @@ async function createRegistration(
   jobPosition,
   positionDescription,
 ) {
-  const a = await Registration.create({
+  const registration = await Registration.create({
     user_name__c: username,
     user_email__c: userEmail,
     user_phone__c: userPhone,
@@ -79,7 +79,11 @@ async function createRegistration(
     job_position__c: jobPosition,
     position_description__c: positionDescription,
   });
-  console.log('a', a);
+
+  const body = helper.messageResponse('Create successfully');
+  body.data = helper.emptyOrRows(registration);
+
+  return body;
 }
 
 module.exports = {

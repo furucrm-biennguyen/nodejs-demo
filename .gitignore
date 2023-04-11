@@ -131,3 +131,4 @@ dist
 
 openssl/
 .DS_Store
+.vscode

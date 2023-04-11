@@ -70,7 +70,7 @@ router.route('/').post(
   responseSender,
 );
 
-/* POST store registration */
+/* POST store registration using sequelize and model */
 router.route('/create').post(
   validate,
   async (req, res, next) => {
