@@ -1,6 +1,6 @@
 import { Table, Column, Model, Sequelize } from 'sequelize-typescript';
 
-import { InferAttributes, InferCreationAttributes, DataTypes, CreationOptional } from 'sequelize';
+import { DataTypes, CreationOptional } from 'sequelize';
 
 import { config } from '../config/config';
 
@@ -10,10 +10,10 @@ const sequelize = new Sequelize(config.db.connectionString, {
 
 @Table({timestamps: false, schema: 'salesforce', tableName: 'grant_money_info__c'})
 export default class Registration extends Model {
-  @Column(DataTypes.BIGINT)
+  @Column({type: DataTypes.BIGINT, autoIncrement: true, primaryKey: true})
   id: CreationOptional<number> | undefined;
 
-  @Column({type: DataTypes.TEXT, primaryKey: true})
+  @Column({type: DataTypes.TEXT})
   user_phone__c: string | undefined;
 
   @Column(DataTypes.DATE)
@@ -21,9 +21,8 @@ export default class Registration extends Model {
 
 }
 
-console.log(__dirname);
-
 sequelize.addModels([__dirname + '/*.model.js']);
+sequelize.addModels([__dirname + '/*.model.ts']);
 // sequelize.addModels([
 //   Registration,
 // ])

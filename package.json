@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "run:dev": "ts-node --transpile-only -r tsconfig-paths/register ./src/Bootstrap.ts",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "run:dev": "ts-node --transpile-only -r tsconfig-paths/register ./src/bootstrap.ts",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/bootstrap.js\"",
     "test:repository": "jest ./Repositories/*.spec.ts --watch",
     "test:service": "jest ./Services/*.spec.ts --watch",
     "test:controller": "jest ./Controllers/*.spec.ts --watch",

@@ -1,9 +1,6 @@
-import { IRegistration } from "../models/IRegistration";
 import { injectable, inject } from "inversify";
 import { TYPES } from "../types";
 import RegistrationRepository from "../Repositories/Registration.repository";
-import Registration from "../models/Registration.model";
-import { InferAttributes } from "sequelize";
 
 @injectable()
 export class RegistrationService {

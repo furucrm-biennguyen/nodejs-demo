@@ -3,7 +3,7 @@
 // import { RegistrationService } from "./Services/RegistrationService";
 import express from "express";
 import "reflect-metadata";
-import morgan from "morgan";
+import logger from "morgan";
 
 import { InversifyExpressServer } from 'inversify-express-utils';
 
@@ -15,6 +15,7 @@ export async function bootstrap() {
 
   server.setConfig((app) => {
     app.use(express.json());
+    app.use(logger('dev'));
 
   });
 

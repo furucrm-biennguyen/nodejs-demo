@@ -4,7 +4,7 @@ import { RegistrationService } from "../Services/RegistrationService";
 import { injectable, inject } from "inversify";
 import { TYPES } from "../types";
 
-@controller("/")
+@controller("/api/registrations")
 class RegistrationController implements interfaces.Controller {
   constructor(@inject(TYPES.RegistrationService) private _RegistrationService: RegistrationService) { }
 
@@ -19,7 +19,7 @@ class RegistrationController implements interfaces.Controller {
     return registrations;
   }
 
-  @httpGet("factory")
+  @httpGet("/factory")
   async factory(@request() req: express.Request, @response() res: express.Response): Promise<string> {
     console.log('factory');
     
