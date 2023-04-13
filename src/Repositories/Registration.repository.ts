@@ -29,22 +29,28 @@ export default class RegistrationRepository {
 
   }
 
-  async findOne() {
-    return await Registration.findOne();
-  }
-
   async getAll() {
     try {
       const data = await Registration.findAll();
+
       return data;
-    }catch (error: any) {
+    } catch (error: any) {
       return error.message;
     };
   }
 
-  async save(user_phone__c: string) {
-    return await Registration.create({
-      user_phone__c: user_phone__c,
-    });
+  async save(registration: Registration) {
+    return await Registration.create(registration.dataValues);
+  }
+
+  async getRegistrationById(registrationId: string): Promise<Registration | null> {
+    try {
+      const RegistrationModel = this.models.Registration;
+      const data = await Registration.findByPk(registrationId);
+
+      return data;
+    } catch (error: any) {
+      return error.message;
+    };
   }
 }
