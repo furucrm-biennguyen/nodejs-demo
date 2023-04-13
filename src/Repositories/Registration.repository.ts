@@ -1,18 +1,28 @@
-import Registration from "../models/Registration.model";
+import Registration, { RegistrationCollection } from "../models/Registration.model";
 import { injectable } from 'inversify';
 
 @injectable()
 export default class RegistrationRepository {
-  constructor() { }
+  private models: any;
 
-  create = async () => {
+  constructor(models: any) {
+    this.models = models;
+  }
+
+  factory = async () => {
     try {
       const newRegistration = await Registration.create({
+        user_name__c: 'Bien TS',
         user_phone__c: '012345',
+        user_email__c: 'bien.nguyen@furucrm.com',
         user_birth_date__c: new Date('1997-03-02'),
+        position_duration__c: 12,
+        company_name__c: 'furuCrm',
+        job_position__c: 'PHP developer',
+        position_description__c: 'Website develop',
       });
 
-      return JSON.stringify(newRegistration);
+      return newRegistration;
     } catch (error: any) {
       return error.message;
     }
@@ -20,12 +30,12 @@ export default class RegistrationRepository {
   }
 
   async findOne() {
-    return JSON.stringify(await Registration.findOne());
+    return await Registration.findOne();
   }
 
   async getAll() {
     try {
-      const data = JSON.stringify(await Registration.findAll());
+      const data = await Registration.findAll();
       return data;
     }catch (error: any) {
       return error.message;

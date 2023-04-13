@@ -19,6 +19,6 @@ export class RegistrationService {
   }
 
   async factory() {
-    return await this._RegistrationRepo.create();
+    return await this._RegistrationRepo.factory();
   }
 }

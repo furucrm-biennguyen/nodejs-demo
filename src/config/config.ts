@@ -16,6 +16,9 @@ const config = {
 
   },
   listPerPage: process.env.LIST_PER_PAGE || 10,
+  webServer: {
+    port: process.env.PORT || 3000,
+  },
 };
 
-export { config };
+export default config;

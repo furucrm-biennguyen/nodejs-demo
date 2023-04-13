@@ -14,8 +14,3 @@ container.
   bind<RegistrationRepository>(TYPES.RegistrationRepository)
   .to(RegistrationRepository)
   .inSingletonScope();
-
-// container.
-//   bind<Registration>(TYPES.Registration)
-//   .to(Registration)
-//   .inSingletonScope();
